@@ -44,15 +44,20 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SkeinFish\Presets.cs" />
+    <Compile Include="SkeinFish\Skein.cs" />
+    <Compile Include="SkeinFish\SkeinConfig.cs" />
+    <Compile Include="SkeinFish\SkeinTesting.cs" />
+    <Compile Include="SkeinFish\Threefish.cs" />
+    <Compile Include="SkeinFish\Threefish1024.cs" />
+    <Compile Include="SkeinFish\Threefish256.cs" />
+    <Compile Include="SkeinFish\Threefish512.cs" />
+    <Compile Include="SkeinFish\ThreefishCipher.cs" />
+    <Compile Include="SkeinFish\ThreefishTransform.cs" />
+    <Compile Include="SkeinFish\UBITweak.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SkeinFish\SkeinFish.csproj">
-      <Project>{f7c81ede-7e55-4eaa-93fe-72885698e138}</Project>
-      <Name>SkeinFish</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
