@@ -31,11 +31,13 @@ namespace OxSkeiner
 
             Console.WriteLine("Using {0} thread(s)\n", threads);
 
-            for (int i = 0; i < threads; i++)
+            for (int i = 0; i < threads; i++) {
                 new Thread(Go).Start();
-            
+                Thread.Sleep(100);
+            }
+
             while (true) {
-                Thread.Sleep(999999999);
+                Thread.Sleep(int.MaxValue);
             }
         }
 
@@ -52,14 +54,14 @@ namespace OxSkeiner
 
             var wc = new WebClient();
 
+            var bytes = new byte[24];
+
             for (int threadRound = 0; ; threadRound++) {
-                // Make a random caps 20 long string
-                var bytes = new byte[20];
+                // Make a random caps 24 long string
                 threadRand.NextBytes(bytes);
                 for (int i = 0; i < bytes.Length; i++) {
                     bytes[i] = (byte) ('A' + bytes[i]%26);
                 }
-                var test = Encoding.ASCII.GetString(bytes);
                 var hash = skein.ComputeHash(bytes);
                 var bitsDiff = BitsDiff(new BitArray(hash));
 
@@ -76,7 +78,7 @@ namespace OxSkeiner
                         try
                         {
                             var nvc = new NameValueCollection();
-                            nvc.Add("hashable", test);
+                            nvc.Add("hashable", Encoding.ASCII.GetString(bytes));
                             var result = wc.UploadValues(url, "POST", nvc);
                             Console.WriteLine(Encoding.UTF8.GetString(result));
                             break;
@@ -88,14 +90,14 @@ namespace OxSkeiner
                     }
                 }
 
-                if (threadRound == 32768) {
-                    Console.WriteLine("Trying {0} - {1} (lowest: {2}, attempt: {3}, speed: {4} kH/s)", test, bitsDiff, best, round, speed);
+                if (threadRound == 65536) {
+                    Console.WriteLine("Trying {0} - {1} (lowest: {2}, attempt: {3}, speed: {4} kH/s)", Encoding.ASCII.GetString(bytes), bitsDiff, best, round, speed);
                     Interlocked.Add(ref round, threadRound);
                     threadRound = 0;
 
                     lock (timeRunning) {
                         if (timeRunning.Elapsed.TotalSeconds > 1) {
-                            speed = Math.Round((round - lastRound) / timeRunning.Elapsed.TotalSeconds / 10000.0, 4);
+                            speed = Math.Round((round - lastRound) / timeRunning.Elapsed.TotalSeconds / 1000.0, 2);
                             timeRunning.Restart();
                             lastRound = round;
                         }
