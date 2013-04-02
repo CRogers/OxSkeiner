@@ -3,6 +3,10 @@ OxSkeiner
 
 Help Oxford win http://almamater.xkcd.com/! Simply download the 64 or 32 bit program and run it (make sure you get the right one! The Skein hash is highly optimised for 64-bit).
 
+ * __Latest 64-bit release__: https://github.com/CRogers/OxSkeiner/raw/releases/OxSkeiner64-V2.exe
+ * __Latest 32-bit release__: https://github.com/CRogers/OxSkeiner/raw/releases/OxSkeiner32-V2.exe
+
+
 Mac/Linux
 ----
 
